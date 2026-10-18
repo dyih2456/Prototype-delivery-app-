@@ -1,0 +1,1859 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة طلبات التوصيل</title>
+    <script>
+        // Minified jsQR library (version 1.4.0)
+        // Source: https://github.com/cozmo/jsQR
+        // License: Apache-2.0
+        !function(e,r){"object"==typeof exports&&"undefined"!=typeof module?module.exports=r():"function"==typeof define&&define.amd?define(r):e.jsQR=r()}(this,function(){"use strict";function e(e,r){return e(r={exports:{}},r.exports),r.exports}function r(e){var r=typeof e;"string"===r?this.data=e:this.data=e.join("")}function t(e,r){for(var t=0,n=0;n<r;n++)t=t<<1|e[n];return t}var n=e(function(e){var r=e.exports={};r.decode=function(e){function t(e,r,t){p(e,r,t),h(e,r,t),v(e,r,t)}function n(e,r){var t=d(e,r),n=d(e,t);return.5*(e[t]+e[n])}function i(e,r,t,n){var i=Math.floor(r),o=Math.ceil(r);if(i<0||o>=t||n<0||n>=e.width)return null;var a=o-r;return a*u(e,n,i)+(1-a)*u(e,n,o)}function o(e,r,t,n){var o=Math.floor(r),a=Math.ceil(r);if(o<0||a>=t||n<0||n>=e.height)return null;var s=a-r;return s*u(e,o,n)+(1-s)*u(e,a,n)}function a(e,r,t,n,i,o,a,s,l){if(isNaN(o)||isNaN(a)||isNaN(s)||isNaN(l)||isNaN(n)||isNaN(i)||isNaN(t)||isNaN(r))return null;for(var f=[],c=0;c<e.height;c++)for(var d=0;d<e.width;d++)f[c*e.width+d]=0;for(var g=0;g<s;g++)for(var w=0;w<l;w++){var m=i+w/s*(r-i),A=o+g/l*(t-o),y=n+w/s*(r-n)+g/l*(t-n),E=a+w/s*(r-a)+g/l*(t-a),C=y/(E-1),T=m/(A-1);if(C<0||C>=e.width-1||T<0||T>=e.height-1)f[g*l+w]=255;else{var M=Math.floor(C),R=Math.floor(T),b=u(e,R,M),_=u(e,R+1,M),k=u(e,R,M+1),S=u(e,R+1,M+1);f[g*l+w]=(b*(_-C)+k*(C-M))*(S-T)+(S*(M-C)+_*(C-k))*(T-R)}}return new x(l,s,f)}function s(e,r,t){var n=e*r.size+t;return n<0||n>=r.data.length?null:r.data[n]}function l(e,r,t,n,i){for(var o=0,a=0,l=0,f=0,c=0,u=n;u<n+i;u++){var d=s(t,r,u);null!==d&&(o+=d,a++,u-n>=i/2&&(l+=d,f++))}return c=i/2>f?null:l/f,null===c?null:{avg:o/a,middle:c}}function f(e,r){var t=e.width,n=e.height;if(null===r)return null;for(var i=Math.min(t,n)/250,o=Math.max(1,Math.floor(i)),a=o*-1,s=-2*o,l=t-1,f=n-1,c=[],u=a;u<=o;u++)for(var d=a;d<=o;d++){var p=0,h=0;if(Math.abs(d-u)%2==0){for(var v=0;v<t;v++)p+=g(e.data[m(e,u+v,d+v)],e.data[m(e,u+v,d+v+1)]);for(var w=0;w<n;w++)h+=g(e.data[m(e,u+w,d+w)],e.data[m(e,u+w+1,d+w)])}c.push(h+p)}c.sort(function(e,r){return e-r});var y=c[Math.floor(c.length/2)]/((t-2)*(n-2));if(y<.01)return null;for(var E=[],C=s;C<t-s;C++)E[C]=[];for(var T=s;T<n-s;T++)for(var C=s;C<t-s;C++)E[C][T]=e.data[m(e,C,T)]<y?1:0;return new x(t,n,E)}function c(e){for(var r=[],t=0;t<e.length;t++){var n=e[t];r.push({x:n.x,y:n.y,count:1,estimatedModuleSize:n.estimatedModuleSize})}for(var i=[],o=0;o<r.length;o++){for(var a=r[o],s=!1,l=0;l<i.length;l++){var f=i[l];if(P(a,f)<a.estimatedModuleSize){f.x=(f.x*f.count+a.x)/++f.count,f.y=(f.y*f.count+a.y)/++f.count,f.estimatedModuleSize=(f.estimatedModuleSize*f.count+a.estimatedModuleSize)/f.count,s=!0;break}}s||i.push(a)}return i.sort(function(e,r){return r.count-e.count}),i.slice(0,3)}function u(e,r,t){return e.data[r*e.width+t]}function d(e,r){for(var t=0,n=r-1;n>=0&&e[n]<=e[r];)n--;for(var i=r+1;i<e.length&&e[i]<=e[r];)i++;return t=Math.floor((n+i)/2),t}function p(e,r,t){var n=Math.floor(e.width/2),o=Math.floor(e.height/2),a=Math.max(n,o),s=Math.min(n,o);if(t>s/2)return null;for(var l=0;l<a;l+=15){for(var f=[],c=0;c<s;c++){var u=n<o?i(e,c,s,n-l):i(e,n-l,a,c),d=n<o?i(e,c,s,n+l):i(e,n+l,a,c);f.push(d-u)}if(r.push(f),l!==0){for(var f=[],c=0;c<s;c++){var u=n<o?o-l:c,d=n<o?c:o-l,p=n<o?o+l:c,h=n<o?c:o+l,v=i(e,u,a,d),g=i(e,p,a,h);f.push(g-v)}r.push(f)}}}function h(e,r,t){for(var n=0;n<e.height;n++){for(var i=[],a=0;a<e.width;a++)i.push(u(e,n,a));r.push(i)}for(var s=0;s<e.width;s++){for(var i=[],l=0;l<e.height;l++)i.push(u(e,l,s));r.push(i)}}function v(e,r,t){var n=Math.floor(e.width/2),i=Math.floor(e.height/2);if(t>Math.min(n,i)/2)return null;for(var o=0;o<i;o+=t){for(var a=[],s=0;s<n;s+=t){for(var l=0,f=0;f<t;f++)for(var c=0;c<t;c++)l+=u(e,o+f,s+c);a.push(l)}r.push(a)}}function g(e,r){var t=Math.abs(e-r);return 2*t}function w(e,r,t,n){var i=0;try{i=R(e,r,t,n)}catch(e){return null}if(isNaN(i)||i<=0)return null;var o={x:t,y:r,estimatedModuleSize:i};return o}function m(e,r,t){return r*e.width+t}function A(e){var r=[];r[0]=0,r[1]=0,r[2]=0,r[3]=0,r[4]=0;for(var t=0;t<e.length;t++){var n=e[t],i=t>0?e[t-1]:0,o=t>1?e[t-2]:0;n<i&&i>o&&n<o&&i>Math.max(n,o)*L?r[2]++:n>i&&i<o&&n>o&&i<Math.min(n,o)*U?r[0]++:r[4]++}return r[0]<2||r[2]<2?null:r}function y(e){for(var r=e.length,t=[],n=[],i=0;i<r;i++){var o=e[i];o>0?t.push(o):n.push(o)}return{numChanges:t.length+n.length,positive:t,negative:n}}function E(e,r,t){var n=e[0]+e[1]+e[2]+e[3]+e[4];if(n<7)return null;var i=(e[0]+e[1])/n,o=(e[3]+e[4])/n;return Math.abs(i-B)<D&&Math.abs(o-B)<D?{moduleSize:(r-t)/7,originalEstimate:e,estimation:n}:null}function C(e){var r=0;return e.forEach(function(e){r+=e}),r}function T(e,r){return Math.abs(e-r)/r}function M(e,r,t){if(Math.abs(r-e.y)>e.estimatedModuleSize||Math.abs(t-e.x)>e.estimatedModuleSize)return 1/0;var n=Math.abs(r-e.y)+Math.abs(t-e.x);return n/e.estimatedModuleSize}function P(e,r){var t=P(e,r);return Math.sqrt(t)}function R(e,r,t,n){var i=e[0],o=i.length,a=0,s=0,l=!0;if(void 0===n)n=V;else if("horizontal"===n)l=!1;else if("vertical"!==n)return null;for(var f=l?r:t,c=l?t:r,u=0;u<G;u++){var d=f-u-1,p=f+u;if(d<0||p>=i.length)break;var h=A(i[d]);if(null===h)break;if(l)s++;else{if(0===h[0]&&0===h[1]&&0===h[2]&&0===h[3]&&0===h[4])break;a++}var v=A(i[p]);if(null===v)break;if(l)s++;else{if(0===v[0]&&0===v[1]&&0===v[2]&&0===v[4])break;a++}}if((l?s:a)<2)return NaN;var g=function(e,r,t,n){var i=e.length,o=1,a=r,s=0;if(r<0||r>=i)return NaN;for(var l=r;l>=0&&!e[l]&&o++<Z;)l--;if(o===Z)return NaN;for(;l>=0&&e[l]&&o++<Z;)l--;if(o===Z)return NaN;for(a=l+1;a<i&&!e[a]&&s++<Z;)a++;if(s===Z)return NaN;var f=a-1-l;if(isNaN(f)||f<=0)return NaN;var c=(l+a-1)/2,u=Math.abs(c-n),d=Math.abs(f-t);return Math.sqrt(u*u+d*d)}(i[f],c,0,0);return g}var b={};Object.defineProperty(b,"size",{value:!0}),Object.defineProperty(b,"correctPerspective",{value:!0});var _={};Object.defineProperty(_,"size",{value:!0}),Object.defineProperty(_,"correctPerspective",{value:!0});var k={};Object.defineProperty(k,"size",{value:!0}),Object.defineProperty(k,"correctPerspective",{value:!0});var S={};Object.defineProperty(S,"size",{value:!0}),Object.defineProperty(S,"correctPerspective",{value:!0});var I={};Object.defineProperty(I,"size",{value:!0}),Object.defineProperty(I,"correctPerspective",{value:!0});var O={};Object.defineProperty(O,"size",{value:!0}),Object.defineProperty(O,"correctPerspective",{value:!0});var F={};Object.defineProperty(F,"size",{value:!0}),Object.defineProperty(F,"correctPerspective",{value:!0});var N={};Object.defineProperty(N,"size",{value:!0}),Object.defineProperty(N,"correctPerspective",{value:!0});var x=function(e,r,t){this.width=e,this.height=r,this.data=t};x.prototype.copy=function(){return new x(this.width,this.height,this.data.slice())};var D=.2,B=2/5,L=1.5,U=.75,G=5,Z=20,q=4,j=r.exports={};j.locate=function(e){for(var r=[],n=0;n<e.height;n++)r[n]=[];for(var i=[],o=0;o<e.height;o++){for(var a=0,s=0,l=!1,f=0;f<e.width;f++){var u=g(e.data[m(e,f,o)],e.data[m(e,f+1,o)])>q;u!==l?(s++,l=u):s=1,s>=B&&(a+=s,s=U,l=!1)}var d=y(r[o]);d.length>3&&(i=i.concat(d.slice(0,d.length-3)))}var p=[],h=c(i);if(h.length<3)return[];for(var v=0;v<h.length;v++){var w=h[v],A=h[(v+1)%h.length],E=h[(v+2)%h.length],C={x:(w.x+A.x+E.x)/3,y:(w.y+A.y+E.y)/3,estimatedModuleSize:(w.estimatedModuleSize+A.estimatedModuleSize+E.estimatedModuleSize)/3};Math.abs(P(w,A)-P(A,E))<2*C.estimatedModuleSize&&Math.abs(P(w,E)-P(A,E))<2*C.estimatedModuleSize&&Math.abs(P(w,A)-P(w,E))<2*C.estimatedModuleSize&&p.push(C)}return p.length<3?[]:p},j.extract=function(e,r){var t=r.topLeft,n=r.topRight,i=r.bottomLeft,o=r.alignmentPattern,s=Math.round(P(t,n)/t.moduleSize),l=Math.round(P(t,i)/t.moduleSize);if((s-l)%2!=0)return null;var f=a(e,t.x,t.y,n.x,n.y,i.x,i.y,o.x,o.y,s,l);return null===f?null:{bits:f,points:[t,n,i,o]}}});n.decode,n.locate,n.extract;var i=e(function(e){function r(e,r,t,n,i,o,a,s){return n<e||i<r||o>t||a>s}function t(e,r,t,i){var o=1<<e-1;return(r&o)!=0?1:(t&o)!=0?0:i}function n(e,r){return Math.max(0,Math.min(e.width-1,r))}function i(e,r){return Math.max(0,Math.min(e.height-1,r))}function o(e,r,t,n,o){var a=e.width,s=e.height,l={},f=!1;if(n=n||W,o=o||W,r=Math.round(r),t=Math.round(t),r<0||r>=a||t<0||t>=s)return null;if(l[[r,t]]=0,n--,n<0)return null;var c=[[r,t]];for(;c.length>0;){var u=c.shift(),d=u[0],p=u[1];if(f){f=!1;var h=i(e,p-o),v=i(e,p+o),g=n(e,d-n),w=n(e,d+w);if(r(g,h,w,v,0,0,a,s))return null}for(var m=0;m<Y.length;m++){var A=d+Y[m][0],y=p+Y[m][1];if(!(A<0||A>=a||y<0||y>=s||void 0!==l[[A,y]])){if(Math.abs(e.data[y*a+A]-e.data[t*a+r])>K)continue;l[[A,y]]=0,c.push([A,y])}}return l}function a(e){var r=e.width,t=e.height,n={},i=0;for(var o in e.points)i++;for(var a=0;a<r;a++)for(var s=0;s<t;s++){var l=0;for(var o in e.points){var f=e.points[o].x-a,c=e.points[o].y-s;l+=Math.sqrt(f*f+c*c)}n[[a,s]]=l/i}return n}function s(e,r,t){var n=e.getContext("2d");n.clearRect(0,0,e.width,e.height),n.fillStyle="#ff0000",n.fillRect(r.topLeft.x,r.topLeft.y,t,t),n.fillRect(r.topRight.x-t,r.topRight.y,t,t),n.fillRect(r.bottomLeft.x,r.bottomLeft.y-t,t,t),n.fillStyle="#00ff00",n.fillRect(r.alignmentPattern.x-t/2,r.alignmentPattern.y-t/2,t,t)}function l(e,r){var t=e.width,n={};for(var i in r)n[i]=r[i];for(var o=0;o<X.length;o++){var a=X[o][0],s=X[o][1],l=i*a+s;if(!(l<0||l>=e.data.length||void 0!==n[l])){if(Math.abs(e.data[l]-e.data[r[0]])>Z)continue;n[l]=0}}return n}function f(e){var r=Object.keys(e).map(function(r){return r.split(",").map(function(e){return parseInt(e)})});if(r.length<Q)return null;for(var t=0,n=0,i=1/0,o=1/0,a=-1/0,s=-1/0,l=0;l<r.length;l++)t+=r[l][0],n+=r[l][1],i=Math.min(i,r[l][0]),o=Math.min(o,r[l][1]),a=Math.max(a,r[l][0]),s=Math.max(s,r[l][1]);return{x:t/r.length,y:n/r.length,minX:i,minY:o,maxX:a,maxY:s}}function c(e,r,n){if(e.length!=r.length)return!1;for(var i=0;i<e.length;i++)if(Math.abs(e[i]-r[i])>n)return!1;return!0}function u(e){for(var r=[],t=0;t<e.length;t++)for(var n=0;n<e[t].length;n++)r.push(e[t][n]);return r}function d(e,r,t,n,i){var o=0;if(Math.abs(r-e)>Math.abs(n-t)){var a=(n-t)/(r-e);for(let s=0;s<Math.abs(r-e);s++)i(Math.round(e+s*(r>e?1:-1)),Math.round(t+s*a))&&o++}else{var a=(r-e)/(n-t);for(let s=0;s<Math.abs(n-t);s++)i(Math.round(e+s*a),Math.round(t+s*(n>t?1:-1)))&&o++}return o}function p(e,r){var t=u(e);if(t.length<G)return null;for(var n=0,i=0,o=0,a=0,s=0;s<t.length;s++){var l=t[s];l.x<t[n].x&&(n=s),l.y<t[i].y&&(i=s),l.x>t[o].x&&(o=s),l.y>t[a].y&&(a=s)}return{topLeft:t[n],bottomRight:t[a],topRight:t[o],bottomLeft:t[i]}}var h=e.exports={};h.grayscale=function(e,r,t){for(var n=new Uint8ClampedArray(r*t),i=0;i<e.length;i+=4){var o=.2126*e[i]+.7152*e[i+1]+.0722*e[i+2];n[i/4]=o}return n},h.detect=function(e){var r=e.width,n=e.height,a=h.binarize(e.data,r,n,e.inversionAttempt);if(null==a)return[];for(var s=[],l=0;l<a.length;l++){var c=h.findPattern(a[l]);c.length>0&&(s=s.concat(c))}if(0==s.length)return[];for(var u=[],d=0;d<s.length;d++){var p=s[d];if(p.length<3)continue;for(var v=0;v<p.length;v++){var g=p[v],w=p[(v+1)%p.length],m=p[(v+2)%p.length],A=Math.sqrt(Math.pow(g.x-w.x,2)+Math.pow(g.y-w.y,2)),y=Math.sqrt(Math.pow(w.x-m.x,2)+Math.pow(w.y-m.y,2)),E=Math.sqrt(Math.pow(g.x-m.x,2)+Math.pow(g.y-m.y,2));if(Math.abs(A-y)/Math.min(A,y)>.5||Math.abs(A-E)/Math.min(A,E)>.5||Math.abs(y-E)/Math.min(y,E)>.5)continue;var C=t(g,w,m),T=t(w,g,m),M=t(m,w,g);if(null!=C&&null!=T&&null!=M){var R={};R[C]=g,R[T]=w,R[M]=m;var b={topLeft:R[7],topRight:R[5],bottomLeft:R[1]},_=(b=h.orderBestPatterns(b)).topLeft.patterns;if(!(b=h.orderBestPatterns(b)).topLeft.moduleSize)continue;var k=Math.sqrt(Math.pow(b.topLeft.x-b.bottomLeft.x,2)+Math.pow(b.topLeft.y-b.bottomLeft.y,2))/b.topLeft.moduleSize,S=Math.sqrt(Math.pow(b.topLeft.x-b.topRight.x,2)+Math.pow(b.topLeft.y-b.topRight.y,2))/b.topLeft.moduleSize;if(Math.abs(1-k/S)>.2||Math.abs(k-(_[k-7].dimension-7))>.5)continue;var I=Math.atan2(b.bottomLeft.y-b.topLeft.y,b.bottomLeft.x-b.topLeft.x),O=b.topRight.x-b.topLeft.x+b.bottomLeft.x,F=b.topRight.y-b.topLeft.y+b.bottomLeft.y,N=(O+Math.cos(I)*k*b.topLeft.moduleSize+Math.sin(I)*k*b.topLeft.moduleSize)/2,x=(F+Math.sin(I)*k*b.topLeft.moduleSize-Math.cos(I)*k*b.topLeft.moduleSize)/2,D=new Array(k*k);for(let e=0;e<k;e++)for(let r=0;r<k;r++){var B=b.topLeft.x+e/k*(b.bottomLeft.x-b.topLeft.x)+r/k*(b.topRight.x-b.topLeft.x),L=b.topLeft.y+e/k*(b.bottomLeft.y-b.topLeft.y)+r/k*(b.topRight.y-b.topLeft.y);D[r*k+e]=a[l].data[Math.floor(L)*a[l].width+Math.floor(B)]?1:0}var U,V=f(o(a[l],N,x,20,Math.ceil(k/10)));if(null==V)continue;var G={x:(3*b.topLeft.x+3*b.topRight.x+3*b.bottomLeft.x+V.x)/10,y:(3*b.topLeft.y+3*b.topRight.y+3*b.bottomLeft.y+V.y)/10,moduleSize:b.topLeft.moduleSize*(1+2*(V.x-(O/2))/(O/2)),patterns:_},Z=h.extract(a[l],{topLeft:b.topLeft,topRight:b.topRight,bottomLeft:b.bottomLeft,alignmentPattern:G});null!=Z&&u.push(Z)}}}}return u},h.binarize=function(e,r,t,n){var i=[];if("invert"===n||"both"===n){for(var o=e.slice(),a=0;a<o.length;a++)o[a]=255-o[a];var s=new Uint8ClampedArray(r*t);h.threshold(o,r,t,s),i.push({data:s,width:r,height:t})}if("normal"===n||"both"===n){var l=new Uint8ClampedArray(r*t);h.threshold(e,r,t,l),i.push({data:l,width:r,height:t})}return 0==i.length?null:i},h.threshold=function(e,r,t,n){for(var i=0;i<t;i++){for(var o=0,a=0;a<r;a++)o+=e[i*r+a];o/=r;for(var a=0;a<r;a++){var s=e[i*r+a]<=o?0:255;n[i*r+a]=s}}};var v=function(e,r,t,n){this.x=e,this.y=r,this.moduleSize=t,this.patterns=n,this.dimension=n[n.length-1].dimension},g=function(e,r,t){this.x=e,this.y=r,this.count=1,this.estimatedModuleSize=t},w=(h.orderBestPatterns=function(e){function r(e,r){return Math.abs(e.x-r.x)+Math.abs(e.y-r.y)}var t=r(e.topLeft,e.topRight),n=r(e.topLeft,e.bottomLeft);t<n&&(e={topLeft:e.topLeft,topRight:e.bottomLeft,bottomLeft:e.topRight});var i=Math.atan2(e.bottomLeft.y-e.topLeft.y,e.bottomLeft.x-e.topLeft.x)-Math.atan2(e.topRight.y-e.topLeft.y,e.topRight.x-e.topLeft.x);return i<-Math.PI/2?(e={topLeft:e.bottomLeft,topRight:e.topLeft,bottomLeft:e.topRight},i=Math.atan2(e.bottomLeft.y-e.topLeft.y,e.bottomLeft.x-e.topLeft.x)-Math.atan2(e.topRight.y-e.topLeft.y,e.topRight.x-e.topLeft.x)):i>Math.PI/2&&(e={topLeft:e.topRight,topRight:e.bottomLeft,bottomLeft:e.topLeft},i=Math.atan2(e.bottomLeft.y-e.topLeft.y,e.bottomLeft.x-e.topLeft.x)-Math.atan2(e.topRight.y-e.topLeft.y,e.topRight.x-e.topLeft.x)),e.angle=i,e},h.findPattern=function(e){var r=e.width,t=e.height,n=Math.floor(Math.min(r,t)/4),i=new Array(t);for(let r=0;r<t;r++){i[r]=new Array(e.width);for(let t=0;t<e.width;t++)i[r][t]=e.data[r*e.width+t]?1:0}var o=[],a=7;for(let s=0;s<t-a;s+=1)for(let l=0;l<r-a;l+=1){if(!i[s][l]||!i[s+a-1][l]||!i[s][l+a-1]||!i[s+a-1][l+a-1])continue;var f=function(e,r,t,n,o){var a=0,s=0,l=0,f=0,c=Math.min(r,n)-e,u=Math.min(t,o)-e;for(let d=1;d<=c;d++)a+=i[e][e+d],s+=i[e+u][e+d],l+=i[e+d][e],f+=i[e+d][e+c];return{h:a-s,v:l-f}}(s,l,s+a,l+a);if(0===f.h&&0===f.v)continue;var c=Math.abs(f.h-f.v);if(c>1)continue;var u=[1,1,1,1,1,1,1];u.dimension=a;var d=new v(l+a/2,s+a/2,f.h/(2*a-2),[u]);o.push(d)}if(0==o.length)return[];for(var p=[],m=0;m<o.length;m++){var A=o[m],y=!1;for(let e=0;e<p.length;e++){var E=p[e];if(Math.abs(A.x-E.x)<n&&Math.abs(A.y-E.y)<n){E.x=(E.x*E.patterns.length+A.x)/(E.patterns.length+1),E.y=(E.y*E.patterns.length+A.y)/(E.patterns.length+1),E.moduleSize=(E.moduleSize*E.patterns.length+A.moduleSize)/(E.patterns.length+1),E.patterns=E.patterns.concat(A.patterns),y=!0;break}}y||p.push(A)}return p.sort(function(e,r){return e.patterns.length-r.patterns.length}),p.filter(function(e){return e.patterns.length>2})});h.extract=function(e,r){var t=r.topLeft.moduleSize,n=Math.round(Math.sqrt(Math.pow(r.topLeft.x-r.topRight.x,2)+Math.pow(r.topLeft.y-r.topRight.y,2))/t),i=Math.round(Math.sqrt(Math.pow(r.topLeft.x-r.bottomLeft.x,2)+Math.pow(r.topLeft.y-r.bottomLeft.y,2))/t);if(n%2==0)n++;else if(n%2!=1)return null;if(i%2==0)i++;else if(i%2!=1)return null;if(n<5||i<5||n!=i)return null;if(r.topLeft.patterns[0].dimension!=r.topRight.patterns[0].dimension||r.topLeft.patterns[0].dimension!=r.bottomLeft.patterns[0].dimension)return null;for(var o=r.topLeft.patterns[0].dimension,a=new Array(o*o),s=0;s<o;s++)for(var l=0;l<o;l++){var f=(r.topLeft.x*(o-l-s)+r.topRight.x*l+r.bottomLeft.x*s)/o,c=(r.topLeft.y*(o-l-s)+r.topRight.y*l+r.bottomLeft.y*s)/o;a[s*o+l]=e.data[Math.floor(c)*e.width+Math.floor(f)]?1:0}return{matrix:a,dimension:o,topLeft:r.topLeft,topRight:r.topRight,bottomLeft:r.bottomLeft}};var m=21522,A=1335,y=7973,E=e(function(e){e.exports=function(e,n){for(var i=e.bits,o=e.points,a=new r,s=4*i.width,l=0;l<s;l++){var f=l%4,c=Math.floor(l/4),u=i.data[c];a.data+=String(u>>3-f&1)}var d=a.data.length;if(d%8!=0)throw new Error("InvalidLength");for(var p=[],h=0;h<d;h+=8){var v=a.data.substr(h,8);p.push(parseInt(v,2))}return new C(p,i.width,i.height,o)}}),C=function(e,r,t,n){var i=k[r];if(!i)throw new Error("InvalidVersion");this.version=r,this.data=e,this.formatInfo=i.formatInfo,this.errorCorrection=i.errorCorrectionLevels[n];var o=this.errorCorrection.blocks[0]+this.errorCorrection.blocks[1];this.errorCorrection.totalDataCodewords=o;var a=this.errorCorrection.blocks[0]*this.errorCorrection.codewordsPerBlock+(this.errorCorrection.blocks[1]||0)*(this.errorCorrection.codewordsPerBlock+1);this.errorCorrection.totalECCodewords=a-o,Object.freeze(this)};C.prototype.decode=function(){var e=this.data;if(e.length%8!=0)throw new Error("InvalidLength");for(var r=R[this.version],t=new Array(r),n=0;n<r;n++)t[n]=new Array(r);for(var i=r-1,o=0,a=0,s=0;i>0;i-=2){6==i&&i--;for(var l=0;l<r;l++){var f=0==o?r-1-l:l;for(let n=0;n<2;n++){if(t[f][i-n]=e[s],s++,s==8*e.length)break}}o=1-o}if(s!=8*e.length)throw new Error("NotAllCodewordsUsed");var c=this.formatInfo.data^m;this.formatInfo.errorCorrectionLevel,this.formatInfo.maskPattern;for(let e=0;e<r;e++)for(let n=0;n<r;n++)S(n,e,this.formatInfo.maskPattern)&&(t[n][e]=1-t[n][e]);var u=P[this.version];if(t=t.slice(u.topLeft.y,u.bottomRight.y+1).map(function(e){return e.slice(u.topLeft.x,u.bottomRight.x+1)}),t.length!=u.dimension||t[0].length!=u.dimension)throw new Error("AlignmentPatternMissing");for(var d=0,p=this.errorCorrection.blocks[0],h=this.errorCorrection.blocks[1],v=this.errorCorrection.codewordsPerBlock,g=this.errorCorrection.totalDataCodewords,w=new Array(g),A=0;A<v;A++)for(let e=0;e<p+h;e++)w[d]=t[e][A],d++;for(let e=p;e<p+h;e++)w[d]=t[e][v],d++;if(d!=g)throw new Error("DidNotExtractEnoughDataCodewords");for(var y=new Array(this.errorCorrection.totalECCodewords),E=0,T=v;T<this.errorCorrection.totalECCodewords/2+v;T++)for(let e=0;e<p+h;e++)y[E]=t[e][T],E++;for(let e=p;e<p+h;e++)y[E]=t[e][T],E++;if(E!=this.errorCorrection.totalECCodewords)throw new Error("DidNotExtractEnoughECCodewords");for(var M=0,b=0;b<p;b++){var _=w.slice(M,M+v);M+=v;var S=y.slice(b*this.errorCorrection.totalECCodewords/2,(b+1)*this.errorCorrection.totalECCodewords/2),I=O(_.concat(S),this.errorCorrection.totalECCodewords/2);if(null==I)return null;w=w.slice(0,b*v).concat(I).concat(w.slice((b+1)*v))}for(var b=0;b<h;b++){var _=w.slice(M,M+v+1);M+=v+1;var S=y.slice((p+b)*this.errorCorrection.totalECCodewords/2,(p+b+1)*this.errorCorrection.totalECCodewords/2),I=O(_.concat(S),this.errorCorrection.totalECCodewords/2);if(null==I)return null;w=w.slice(0,(p+b)*v).concat(I).concat(w.slice((p+b+1)*v))}this.dataCodewords=w;var F=this.dataCodewords[0]>>4;this.mode={id:F,ccBytes:x[this.version][F]};var N=this.dataCodewords[0]<<4|this.dataCodewords[1]>>4;if(N>>this.mode.ccBytes[this.errorCorrectionLevel]!=0)throw new Error("MessageLengthWrong");var D=B[this.mode.id](this.dataCodewords.slice(1),N);this.text=D.text,this.bytes=D.bytes,this.chunks=D.chunks},C.decode=function(e){var r=e.version>>3,t=(e.version&7)>>1,n=e.version&1;if(r<7||r>40)throw new Error("InvalidVersion");if(t>3)throw new Error("InvalidErrorCorrectionLevel");if(n>1)throw new Error("InvalidMode");for(var i=new Array(e.data.length),o=0;o<e.data.length;o++)i[o]=e.data[o];return new C(i,r,t,n)};var R={7:45,8:49,9:53,10:57,11:61,12:65,13:69,14:73,15:77,16:81,17:85,18:89,19:93,20:97,21:101,22:105,23:109,24:113,25:117,26:121,27:125,28:129,29:133,30:137,31:141,32:145,33:149,34:153,35:157,36:161,37:165,38:169,39:173,40:177},b={L:{formatInfo:{errorCorrectionLevel:1,maskPattern:0},errorCorrection:{codewordsPerBlock:0,blocks:[0,0],totalDataCodewords:0,totalECCodewords:0}},M:{formatInfo:{errorCorrectionLevel:0,maskPattern:0},errorCorrection:{codewordsPerBlock:0,blocks:[0,0],totalDataCodewords:0,totalECCodewords:0}},Q:{formatInfo:{errorCorrectionLevel:3,maskPattern:0},errorCorrection:{codewordsPerBlock:0,blocks:[0,0],totalDataCodewords:0,totalECCodewords:0}},H:{formatInfo:{errorCorrectionLevel:2,maskPattern:0},errorCorrection:{codewordsPerBlock:0,blocks:[0,0],totalDataCodewords:0,totalECCodewords:0}}},_=/^([\u0000-\u007f]|[\u0080-\u009f][\u0000-\u007f]|[\u00a0-\u00bf][\u0000-\u003f\u0080-\u00bf]|[\u00c0-\u00df][\u0000-\u003f\u0080-\u00bf]{2}|[\u00e0-\u00ef][\u0000-\u003f\u0080-\u00bf]{3}|[\u00f0-\u00f7][\u0000-\u003f\u0080-\u00bf]{4}|[\u00f8-\u00fb][\u0000-\u003f\u0080-\u00bf]{5}|[\u00fc-\u00fd][\u0000-\u003f\u0080-\u00bf]{6})*$/,k=function(e,r,t,n,i,o,a,s){this.version=e,this.errorCorrectionLevel=r,this.formatInfo={data:t,errorCorrectionLevel:r,maskPattern:n},this.errorCorrection={codewordsPerBlock:i,blocks:[o,a],totalDataCodewords:o*i+(a||0)*(i+1),totalECCodewords:s-this.errorCorrection.totalDataCodewords},Object.freeze(this)};k.VERSIONS=[];for(var I=1;I<=40;I++){var S={},O={};for(var F in b)S[F]=b[F];k.VERSIONS[I]=S}function S(e,r,t){switch(t){case 0:return(e+r)%2==0;case 1:return r%2==0;case 2:return e%3==0;case 3:return(e+r)%3==0;case 4:return(Math.floor(r/2)+Math.floor(e/3))%2==0;case 5:return e*r%2+e*r%3==0;case 6:return(e*r%2+e*r%3)%2==0;case 7:return((e+r)%2+e*r%3)%2==0}}var P=[null,null,null,null,null,null,null,{errorCorrectionLevels:{L:new k(7,"L",0,0,44,[1,0],176-0*44,26),M:new k(7,"M",0,0,34,[2,0],136-0*34,26),Q:new k(7,"Q",0,0,26,[2,0],104-0*26,26),H:new k(7,"H",0,0,18,[2,2],72-8*18,26)},formatInfo:{}},{errorCorrectionLevels:{L:new k(8,"L",0,0,70,[1,0],280-0*70,26),M:new k(8,"M",0,0,55,[1,0],220-0*55,26),Q:new k(8,"Q",0,0,39,[2,0],156-0*39,26),H:new k(8,"H",0,0,26,[4,0],104-0*26,26)},formatInfo:{}}];P[1]={errorCorrectionLevels:{L:new k(1,"L",A^m,0,19,[1,0],19,7),M:new k(1,"M",y^m,0,16,[1,0],16,10),Q:new k(1,"Q",14893^m,0,13,[1,0],13,13),H:new k(1,"H",11065^m,0,9,[1,0],9,17)},formatInfo:{data:A^m,errorCorrectionLevel:1,maskPattern:0}},P[2]={errorCorrectionLevels:{L:new k(2,"L",6177^m,0,34,[1,0],34,10),M:new k(2,"M",2309^m,0,28,[1,0],28,16),Q:new k(2,"Q",17709^m,0,22,[1,0],22,22),H:new k(2,"H",13833^m,0,16,[1,0],16,28)},formatInfo:{data:6177^m,errorCorrectionLevel:1,maskPattern:0}},P[3]={errorCorrectionLevels:{L:new k(3,"L",30397^m,0,55,[1,0],55,15),M:new k(3,"M",26529^m,0,44,[1,0],44,26),Q:new k(3,"Q",9393^m,0,34,[2,0],34,18),H:new k(3,"H",5517^m,0,26,[2,0],26,26)},formatInfo:{data:30397^m,errorCorrectionLevel:1,maskPattern:0}},P[4]={errorCorrectionLevels:{L:new k(4,"L",20033^m,0,80,[1,0],80,20),M:new k(4,"M",16165^m,0,64,[1,0],64,18),Q:new k(4,"Q",31925^m,0,48,[2,0],48,26),H:new k(4,"H",28049^m,0,36,[2,0],36,16)},formatInfo:{data:20033^m,errorCorrectionLevel:1,maskPattern:0}},P[5]={errorCorrectionLevels:{L:new k(5,"L",12053^m,0,108,[1,0],108,26),M:new k(5,"M",8185^m,0,86,[1,0],86,24),Q:new k(5,"Q",23605^m,0,62,[2,0],62,18),H:new k(5,"H",19729^m,0,46,[2,0],46,22)},formatInfo:{data:12053^m,errorCorrectionLevel:1,maskPattern:0}},P[6]={errorCorrectionLevels:{L:new k(6,"L",4213^m,0,136,[1,0],136,18),M:new k(6,"M",333^m,0,108,[2,0],108,16),Q:new k(6,"Q",15365^m,0,76,[4,0],76,24),H:new k(6,"H",11489^m,0,60,[4,0],60,28)},formatInfo:{data:4213^m,errorCorrectionLevel:1,maskPattern:0}};var x=function(e,r,n){this.data=e,this.version=r,this.formatInfo=n,this.chunks=[],Object.freeze(this)};x.decode=function(e,r,n,i){for(var o=new Array,a=0;a<e.length;a++){var s=e[a];o.push(s)}return new x(o,r,n,i)};var D={};D.decode=function(e){var n=E(e,D.posibles);if(!n)return null;var i={};i.text=n.result,i.bytes=[],i.chunks=[{type:"byte",bytes:[],text:n.result}],i.bytes=i.chunks[0].bytes.slice();for(var o=0;o<n.result.length;o++){var a=n.result.charCodeAt(o);i.bytes.push(a&255)}return i},D.posibles=[t,r];var B={};return B.decode=function(e,r){var n=E(e,B.posibles);return n?{text:n.result,bytes:[],chunks:[{type:n.type,bytes:[],text:n.result}]}:null},B.posibles=[t,r],function(e,t){var n=h.detect(e);if(null==n||0==n.length)return null;for(var o=0;o<n.length;o++){var a=n[o],s=v.format(a.dimension);if(null==s)continue;var l=v.readCodewords(a,s);if(null==l)continue;var f=v.correctErrors(l,s.errorCorrection);if(null==f)continue;var c=C.decode(f,s);if(null==c)continue;var u=E(c,t);if(u){var d=u.bytes;return{text:u.text,bytes:d,version:s.version,chunks:u.chunks,points:a.points}}}}});
+    </script>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #282b2f;
+            --font-family: 'Tahoma', 'Segoe UI', 'Roboto', sans-serif;
+            --base-font-size: 16px; /* Base font size for rem calculations */
+        }
+
+        html {
+            font-size: var(--base-font-size);
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: var(--dark-color);
+            line-height: 1.6;
+            font-size: 1rem; /* 16px by default */
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.75rem;
+        }
+
+        main {
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 1rem auto;
+        }
+
+        section {
+            background-color: white;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
+        h2, h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        /* Modal titles should not have a bottom border if not desired */
+        .modal-content h3 {
+            border-bottom: none; /* Example: remove border for modal titles */
+            margin-bottom: 1.25rem; /* Ensure spacing for modal title */
+        }
+
+
+        h2 {
+           font-size: 1.6rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .agent-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: var(--light-color);
+            transition: box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .agent-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .agent-card h4 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: var(--dark-color);
+            font-size: 1.15rem;
+        }
+        .agent-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-card-actions {
+            margin-top: auto;
+            padding-top: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .agent-card-actions button {
+            width: 100%;
+        }
+
+
+        button, select, input[type="text"], input[type="tel"], input[type="number"], textarea, input[type="file"] {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: var(--font-family);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            border: none;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button.secondary {
+            background-color: var(--secondary-color);
+        }
+        button.secondary:hover {
+            background-color: #545b62;
+        }
+        button.secondary:disabled {
+            background-color: #aaa;
+        }
+
+
+        button.success { background-color: var(--success-color); }
+        button.success:hover { background-color: #1e7e34; }
+
+        button.danger { background-color: var(--danger-color); }
+        button.danger:hover { background-color: #b02a37; }
+
+        button.warning { background-color: var(--warning-color); color: var(--dark-color); }
+        button.warning:hover { background-color: #d39e00; }
+
+        button.info { background-color: var(--info-color); }
+        button.info:hover { background-color: #117a8b; }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 0.75rem;
+            background-color: var(--info-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+            width: 100%;
+            margin-bottom: 0.75rem; /* Consistent margin */
+        }
+        .file-input-label:hover {
+            background-color: #117a8b;
+        }
+
+
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            margin-top: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.3rem;
+            text-align: right;
+            vertical-align: middle;
+            font-size: 0.7rem;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        #agent-details-section table th:nth-child(1),
+        #agent-details-section table td:nth-child(1) { width: 25px; min-width: 25px; text-align: center; padding-left: 0.15rem; padding-right: 0.15rem; }
+        #agent-details-section table th:nth-child(2),
+        #agent-details-section table td:nth-child(2) { width: 10%; min-width: 60px; }
+        #agent-details-section table th:nth-child(3),
+        #agent-details-section table td:nth-child(3) { width: 8%; min-width: 60px; }
+        #agent-details-section table th:nth-child(4),
+        #agent-details-section table td:nth-child(4) { width: 10%; min-width: 70px; }
+        #agent-details-section table th:nth-child(5),
+        #agent-details-section table td:nth-child(5) { width: 8%; min-width: 50px; }
+        #agent-details-section table th:nth-child(6),
+        #agent-details-section table td:nth-child(6) { width: 15%; min-width: 70px; }
+        #agent-details-section table th:nth-child(7),
+        #agent-details-section table td:nth-child(7) { width: 20%; min-width: 70px; white-space: normal; word-break: break-word; }
+        #agent-details-section table th:nth-child(8),
+        #agent-details-section table td:nth-child(8) { width: 7%; min-width: 50px; }
+        #agent-details-section table th:nth-child(9),
+        #agent-details-section table td:nth-child(9) { width: 40px; min-width: 40px; text-align: center; padding-left: 0.15rem; padding-right: 0.15rem; }
+
+
+        .table-action-button {
+            font-size: 0.85rem;
+            padding: 0.6rem 0.8rem;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 0;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 1.5rem 2rem;
+            border: 1px solid #888;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-content.modal-lg {
+             max-width: 800px;
+        }
+         .modal-content.modal-xl {
+             max-width: 95%;
+             width: 1100px;
+        }
+        .modal-content.modal-sm {
+             max-width: 350px;
+        }
+
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .modal-content form button[type="submit"] {
+            margin-top: 1rem;
+        }
+        /* Styling for buttons inside a non-form modal content area */
+        .modal-actions-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem; /* Consistent gap between action items */
+            margin-top: 1rem; /* Space above the actions if there's a title */
+        }
+        .modal-actions-group button,
+        .modal-actions-group .file-input-label {
+            margin-bottom: 0; /* Remove default bottom margin as gap handles it */
+        }
+
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            font-size: 1.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .status-badge {
+            padding: 0.3em 0.6em;
+            border-radius: 0.25em;
+            font-size: 0.65em;
+            color: white;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .status-مع-المندوب { background-color: var(--info-color); }
+        .status-تم-التسليم { background-color: var(--success-color); }
+        .status-ملغي { background-color: var(--danger-color); }
+        .status-مؤجل { background-color: var(--warning-color); color: var(--dark-color); }
+        .status-واصل-جزئي { background-color: var(--secondary-color); }
+        .status-custom { background-color: var(--secondary-color); }
+
+        .status-update-specific-note {
+            font-size: 0.6em;
+            color: var(--secondary-color);
+            margin-right: 0.3em;
+            font-style: italic;
+            display: block;
+            margin-top: 0.2em;
+        }
+
+
+        .search-input-group {
+            display: flex;
+            gap: 0.5rem; /* Gap between input and buttons */
+            align-items: center; /* Vertically align items */
+            margin-bottom: 1rem;
+        }
+        .search-input-group input[type="text"] {
+            flex-grow: 1;
+            margin-bottom: 0; /* Remove default margin as group handles it */
+        }
+        .search-input-group button {
+            padding: 0.6rem 0.8rem; /* Consistent padding for search/QR buttons */
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin-bottom: 0; /* Remove default margin */
+        }
+        .qr-scan-btn {
+            padding: 0.6rem !important; /* Make QR button slightly smaller/squarer */
+            font-size: 1.1rem !important; /* Larger icon */
+            line-height: 1;
+        }
+
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: bold;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+        }
+
+        .agent-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            margin-bottom: 0.5rem; /* Reduced margin */
+        }
+
+        .agent-details-header .action-menu-container {
+             position: static;
+             margin-right: auto;
+        }
+
+        /* Container for print-specific header info (sequence, date) */
+        .print-meta-header-placeholder {
+            display: none; /* Hidden on screen, content injected by JS for print */
+        }
+        /* Container for print-specific financial summary */
+        .print-financial-summary-placeholder {
+            display: none; /* Hidden on screen, content injected by JS for print */
+        }
+
+
+        #agent-details-info {
+             flex-grow: 1;
+        }
+        #agent-details-info > p { /* Direct children p for name, phone, area, deliveryFee */
+            margin: 0.4rem 0;
+            font-size: 1.05rem;
+        }
+        #agent-details-info strong {
+            color: var(--primary-color);
+        }
+
+        .agent-summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem 1rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem 0;
+            border-top: 1px dashed #e0e0e0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        .agent-summary-stats p {
+            margin: 0.25rem 0;
+            font-size: 1.1rem; /* Slightly larger */
+            font-weight: 500;
+        }
+        .agent-summary-stats p strong {
+             color: var(--dark-color); /* More subtle for these labels */
+        }
+        .agent-summary-stats p.total-delivered-amount strong,
+        .agent-summary-stats p.total-delivery-fees strong {
+            color: var(--success-color);
+        }
+        .agent-summary-stats p.total-delivered-amount span,
+        .agent-summary-stats p.total-delivery-fees span {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        .agent-summary-stats p.net-after-fees strong,
+        .agent-summary-stats p.net-after-fees span {
+            color: var(--success-color);
+        }
+        .agent-summary-stats p.net-after-fees span {
+            font-weight: bold;
+        }
+        .agent-summary-stats p.total-expenses strong,
+        .agent-summary-stats p.total-expenses span {
+            color: var(--danger-color); /* Expenses in red */
+        }
+        .agent-summary-stats p.total-expenses span {
+            font-weight: bold;
+        }
+
+
+        .status-counters-heading {
+            font-size: 1.15rem; /* Clearly a sub-heading */
+            color: var(--primary-color);
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid #ddd;
+            font-weight: 600;
+        }
+
+        #agent-status-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #agent-status-breakdown p {
+            margin: 0;
+            font-size: 0.95rem;
+            background-color: var(--light-color);
+            padding: 0.6rem 0.75rem;
+            border-radius: 5px;
+            border-right: 4px solid var(--secondary-color); /* Default accent for RTL */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #agent-status-breakdown p strong {
+            color: var(--dark-color);
+            font-weight: 500; /* Medium weight for labels */
+        }
+        #agent-status-breakdown p span {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        /* Specific accent colors for each status counter */
+        #agent-status-breakdown p:has(#agent-details-status-with-agent) { border-right-color: var(--info-color); }
+        #agent-status-breakdown p:has(#agent-details-status-with-agent) span { color: var(--info-color); }
+
+        #agent-status-breakdown p:has(#agent-details-status-delivered) { border-right-color: var(--success-color); }
+        #agent-status-breakdown p:has(#agent-details-status-delivered) span { color: var(--success-color); }
+
+        #agent-status-breakdown p:has(#agent-details-status-deferred) { border-right-color: var(--warning-color); }
+        #agent-status-breakdown p:has(#agent-details-status-deferred) span { color: var(--warning-color); }
+
+        #agent-status-breakdown p:has(#agent-details-status-partial) { border-right-color: var(--secondary-color); }
+        #agent-status-breakdown p:has(#agent-details-status-partial) span { color: var(--secondary-color); }
+
+        #agent-status-breakdown p:has(#agent-details-status-cancelled) { border-right-color: var(--danger-color); }
+        #agent-status-breakdown p:has(#agent-details-status-cancelled) span { color: var(--danger-color); }
+
+
+        #agent-details-section .button-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+             margin-top: 1rem; /* Ensure space above buttons if content before it is short */
+        }
+        #agent-details-section .button-group button {
+            flex-grow: 1;
+             min-width: 150px;
+        }
+
+        .order-history-list {
+            list-style-type: none;
+            padding: 0;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        .order-history-list li {
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+        .order-history-list li:last-child {
+            border-bottom: none;
+        }
+        .order-history-list .history-status {
+            font-weight: bold;
+        }
+        .order-history-list .history-time {
+            font-size: 0.85em;
+            color: var(--secondary-color);
+            display: block;
+            margin-top: 0.25em;
+        }
+        .order-history-list .history-note {
+            font-size: 0.9em;
+            color: var(--dark-color);
+            margin-top: 0.4em;
+            padding-right: 1em;
+            border-right: 2px solid var(--primary-color);
+            display: block;
+            word-wrap: break-word;
+        }
+
+        /* Action Menu Styles (General for Dropdowns like Agent Card) */
+        .action-menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .action-menu-toggle { /* This style applies to ALL three-dot buttons */
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .action-menu-toggle:hover {
+            color: var(--primary-color);
+            background-color: transparent; /* Ensure no bg on hover for plain toggles */
+        }
+
+        /* Action Menu Dropdown Content (e.g., for agent card) */
+        .action-menu-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px; /* Increased width to accommodate longer button texts */
+            width: max-content;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border-radius: 4px;
+            padding: 0.5rem;
+        }
+        .action-menu-content.show {
+            display: flex;
+            flex-direction: column;
+        }
+        /* Positioning for agent card dropdown menu */
+        .agent-card .action-menu-container .action-menu-content {
+            left: 0;
+            right: auto;
+            top: 100%;
+        }
+        .action-menu-content button,
+        .action-menu-content .file-input-label { /* Style for items in dropdown menus */
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            text-align: right;
+            background-color: transparent;
+            color: var(--dark-color);
+            border: none;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin-bottom: 0.5rem;
+            box-sizing: border-box;
+            border-radius: 3px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+         .action-menu-content .file-input-label {
+            display: block;
+            line-height: normal;
+         }
+        .action-menu-content button:last-child,
+        .action-menu-content .file-input-label:last-of-type {
+            margin-bottom: 0;
+        }
+        .action-menu-content button:hover,
+        .action-menu-content .file-input-label:hover {
+            background-color: #f1f1f1;
+            color: var(--primary-color);
+        }
+        .action-menu-content button.danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        .action-menu-content button.danger:hover {
+            background-color: #b02a37;
+        }
+         .action-menu-content button.info {
+            background-color: var(--info-color);
+            color: white;
+        }
+        .action-menu-content button.info:hover {
+            background-color: #117a8b;
+        }
+        .action-menu-content button.warning {
+             background-color: var(--warning-color);
+             color: var(--dark-color);
+         }
+         .action-menu-content button.warning:hover {
+             background-color: #d39e00;
+         }
+
+
+        /* Agent card action menu specific positioning for the container itself */
+        .agent-card .action-menu-container {
+             position: absolute;
+             top: 0.75rem;
+             left: 0.75rem; /* For RTL, this is the left side */
+        }
+
+        .order-actions-cell {
+            position: relative;
+            text-align: center;
+        }
+
+        #orderActionsModalContent { /* This is for the order actions in table, already a modal */
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        #customStatusActiveDiv label {
+            display: inline-block; margin-bottom: 0; font-weight: normal; margin-right: 0.5rem;
+        }
+        #customStatusActiveDiv input[type="checkbox"] {
+            width: auto; margin-bottom: 0; vertical-align: middle;
+        }
+
+        /* Header for sections like Agents List */
+        .section-header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .section-header-controls h2 {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        /* Global Stats Section */
+        #global-stats-section {
+            background-color: var(--light-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        #global-stats-section h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .global-stats-highlight-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .global-stats-highlight-item {
+            background-color: #fff;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+        }
+        .global-stats-highlight-item strong {
+            display: block;
+            font-size: 0.95em;
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+        .global-stats-highlight-item span {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            line-height: 1.2;
+        }
+
+        .global-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem 1rem;
+        }
+        .global-stats-grid p {
+            margin: 0;
+            padding: 0.5rem 0.75rem;
+            background-color: white;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-right: 3px solid var(--secondary-color);
+        }
+        .global-stats-grid p strong {
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+        .global-stats-grid p span {
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+         /* Specific accent colors for global stats */
+        .global-stats-grid p.stat-with-agent { border-right-color: var(--info-color); }
+        .global-stats-grid p.stat-with-agent span { color: var(--info-color); }
+
+        .global-stats-grid p.stat-delivered { border-right-color: var(--success-color); }
+        .global-stats-grid p.stat-delivered span { color: var(--success-color); }
+
+        .global-stats-grid p.stat-deferred { border-right-color: var(--warning-color); }
+        .global-stats-grid p.stat-deferred span { color: var(--warning-color); }
+
+        .global-stats-grid p.stat-partial { border-right-color: var(--secondary-color); }
+        .global-stats-grid p.stat-partial span { color: var(--secondary-color); }
+
+        .global-stats-grid p.stat-cancelled { border-right-color: var(--danger-color); }
+        .global-stats-grid p.stat-cancelled span { color: var(--danger-color); }
+
+        .global-stats-grid p.stat-total-delivered-amount { border-right-color: var(--success-color); }
+        .global-stats-grid p.stat-total-delivered-amount span { color: var(--success-color); font-weight: bold;}
+
+        .global-stats-grid p.stat-total-delivery-fees-all { border-right-color: var(--success-color); }
+        .global-stats-grid p.stat-total-delivery-fees-all span { color: var(--success-color); font-weight: bold;}
+
+        .global-stats-grid p.stat-total-net-after-fees-all { border-right-color: var(--success-color); }
+        .global-stats-grid p.stat-total-net-after-fees-all span { color: var(--success-color); font-weight: bold;}
+
+
+        /* Global Search Container */
+        #global-search-container {
+            background-color: var(--light-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem; /* Space below global stats */
+            margin-bottom: 1.5rem; /* Space before agent cards */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        #global-search-container h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--primary-color);
+            font-size: 1.2rem;
+        }
+        #global-search-input-group { /* This is now a .search-input-group */
+           /* display: flex; No longer needed here, moved to .search-input-group */
+           /* gap: 0.75rem; */
+        }
+        #global-search-input-group input[type="text"] {
+            /* flex-grow: 1; */ /* Handled by .search-input-group */
+            /* margin-bottom: 0; */
+        }
+        #global-search-input-group button {
+            /* white-space: nowrap; */
+            /* margin-bottom: 0; */
+        }
+
+        /* Global Search Results Modal Table */
+        #globalSearchResultsModal table th:nth-child(1), /* Agent Name */
+        #globalSearchResultsModal table td:nth-child(1) { width: 15%; min-width: 100px; }
+        #globalSearchResultsModal table th:nth-child(2), /* الشركة */
+        #globalSearchResultsModal table td:nth-child(2) { width: 10%; min-width: 80px; }
+        #globalSearchResultsModal table th:nth-child(3), /* Receipt No. */
+        #globalSearchResultsModal table td:nth-child(3) { width: 10%; min-width: 80px; }
+        #globalSearchResultsModal table th:nth-child(4), /* Customer Phone */
+        #globalSearchResultsModal table td:nth-child(4) { width: 10%; min-width: 90px; }
+        #globalSearchResultsModal table th:nth-child(5), /* Price */
+        #globalSearchResultsModal table td:nth-child(5) { width: 8%; min-width: 70px; }
+        #globalSearchResultsModal table th:nth-child(6), /* Status */
+        #globalSearchResultsModal table td:nth-child(6) { width: 15%; min-width: 100px; }
+        #globalSearchResultsModal table th:nth-child(7), /* Notes */
+        #globalSearchResultsModal table td:nth-child(7) { width: 25%; min-width: 120px; white-space: normal; word-break: break-word;}
+        #globalSearchResultsModal table th:nth-child(8), /* Date */
+        #globalSearchResultsModal table td:nth-child(8) { width: 7%; min-width: 60px; }
+
+        /* QR Scanner Modal */
+        #qrScannerModal .modal-content {
+            max-width: 600px;
+        }
+        #qrScannerModal video {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            background-color: #333; /* Fallback for when video is loading */
+        }
+        #qrScannerModal canvas {
+            display: none; /* Only used by JS, not for display */
+        }
+        #qrScannerStatus {
+            text-align: center;
+            margin-top: 0.75rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        /* Agent Expenses Modal Styles */
+        .expenses-controls-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .expenses-controls-group button {
+            margin-bottom: 0;
+            opacity: 0.7;
+            border: 2px solid transparent;
+            font-size: 0.85rem;
+            padding: 0.5rem 0.7rem;
+        }
+        .expenses-controls-group button.active {
+            opacity: 1;
+            border-color: var(--primary-color);
+        }
+
+        .expenses-content-area {
+            margin-top: 0.5rem;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 0.5rem; /* For scrollbar spacing */
+        }
+        .expense-group {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            overflow: hidden; /* To contain the border-radius */
+        }
+        .expense-group summary {
+            padding: 0.75rem 1rem;
+            background-color: var(--light-color);
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none; /* Hide default triangle */
+        }
+        .expense-group summary::-webkit-details-marker {
+            display: none; /* Hide default triangle for Webkit */
+        }
+        .expense-group summary::before {
+            content: '◀'; /* Custom triangle */
+            font-size: 0.8em;
+            margin-left: 0.5rem; /* RTL */
+            transition: transform 0.2s ease-in-out;
+        }
+        .expense-group[open] > summary::before {
+            transform: rotate(-90deg);
+        }
+        .expense-group-total {
+            color: var(--danger-color);
+        }
+        .expense-group-items {
+            padding: 0.5rem 1rem 1rem 1rem;
+            border-top: 1px solid #ddd;
+        }
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .expense-item:last-child {
+            border-bottom: none;
+        }
+        .expense-item-details {
+            flex-grow: 1;
+        }
+        .expense-item-description {
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        .expense-item-date {
+            font-size: 0.85em;
+            color: var(--secondary-color);
+        }
+        .expense-item-amount {
+            font-weight: bold;
+            color: var(--danger-color);
+            font-size: 1.05em;
+            min-width: 120px;
+            text-align: left;
+        }
+        #no-expenses-message {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            header h1 {
+                font-size: 1.5rem;
+            }
+            main {
+                padding: 0.75rem;
+                margin: 0.75rem auto;
+            }
+            section {
+                padding: 1rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            .cards-container {
+                gap: 1rem;
+            }
+            .agent-card {
+                padding: 1rem;
+            }
+             th, td {
+                padding: 0.25rem;
+                font-size: 0.65rem;
+            }
+            th {
+                font-size: 0.6rem;
+            }
+            table {
+                 min-width: 100%;
+            }
+            #agent-details-section table th:nth-child(1),
+            #agent-details-section table td:nth-child(1) { width: 20px; min-width: 20px; }
+            #agent-details-section table th:nth-child(2),
+            #agent-details-section table td:nth-child(2) { min-width: 50px; }
+            #agent-details-section table th:nth-child(3),
+            #agent-details-section table td:nth-child(3) { min-width: 50px; }
+            #agent-details-section table th:nth-child(4),
+            #agent-details-section table td:nth-child(4) { min-width: 60px; }
+            #agent-details-section table th:nth-child(5),
+            #agent-details-section table td:nth-child(5) { min-width: 40px; }
+            #agent-details-section table th:nth-child(6),
+            #agent-details-section table td:nth-child(6) { min-width: 60px; }
+            #agent-details-section table th:nth-child(7),
+            #agent-details-section table td:nth-child(7) { min-width: 65px; }
+            #agent-details-section table th:nth-child(8),
+            #agent-details-section table td:nth-child(8) { min-width: 45px; }
+            #agent-details-section table th:nth-child(9),
+            #agent-details-section table td:nth-child(9) { width: 35px; min-width: 35px;}
+
+
+            button, select, input[type="text"], input[type="tel"], input[type="number"], textarea, .file-input-label {
+                font-size: 0.9rem;
+                padding: 0.65rem;
+            }
+            .search-input-group button, .qr-scan-btn {
+                padding: 0.65rem !important; /* Adjust for smaller screens */
+                font-size: 0.9rem !important;
+            }
+            .qr-scan-btn {
+                 font-size: 1rem !important;
+            }
+
+            #agent-details-info > p {
+                font-size: 1rem;
+            }
+            .agent-summary-stats p { font-size: 1rem; }
+            .status-counters-heading { font-size: 1.1rem; }
+            #agent-status-breakdown { grid-template-columns: 1fr; } /* Stack counters on smaller screens */
+            #agent-status-breakdown p { font-size: 0.9rem; padding: 0.5rem 0.6rem;}
+            #agent-status-breakdown p span { font-size: 1rem; }
+
+
+            .modal-content {
+                padding: 1.5rem;
+                max-width: 90vw;
+            }
+            .modal-content.modal-lg {
+                max-width: 95vw;
+            }
+            .modal-content.modal-xl {
+                 max-width: 95vw;
+            }
+            .modal-content.modal-sm {
+                 max-width: 80vw;
+            }
+             #agent-details-section .button-group button {
+                width: 100%;
+                flex-grow: 0;
+            }
+             .action-menu-toggle {
+                padding: 0.3rem 0.5rem;
+                font-size: 1.4rem;
+            }
+            .action-menu-content { /* For dropdowns */
+                min-width: 160px;
+            }
+             .action-menu-content button, .action-menu-content .file-input-label { /* For dropdowns */
+                font-size: 0.85rem;
+             }
+            #global-stats-section h3 { font-size: 1.1rem; }
+            .global-stats-highlight-container, .global-stats-grid { grid-template-columns: 1fr; }
+            .global-stats-highlight-item { font-size: 1rem; padding: 0.6rem 0.8rem; }
+            .global-stats-highlight-item span { font-size: 1.3em; }
+            .global-stats-grid p { font-size: 0.9rem; padding: 0.4rem 0.6rem; }
+            .global-stats-grid p span { font-size: 1rem; }
+            #global-search-container h3 { font-size: 1.1rem;}
+            .search-input-group { flex-direction: column; } /* Stack search items on small screens */
+            .search-input-group input[type="text"], .search-input-group button { width: 100%; }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            main {
+                padding: 0.5rem;
+            }
+            header h1 {
+                font-size: 1.3rem;
+            }
+            section {
+                padding: 0.75rem;
+            }
+            .modal-content {
+                padding: 1rem 1.25rem;
+                max-width: 95vw;
+            }
+            label {
+                font-size: 0.85rem;
+            }
+             th, td {
+                padding: 0.2rem;
+                font-size: 0.6rem;
+            }
+            th {
+                font-size: 0.55rem;
+            }
+            #agent-details-section table th:nth-child(2),
+            #agent-details-section table td:nth-child(2) { min-width: 45px; }
+            #agent-details-section table th:nth-child(3),
+            #agent-details-section table td:nth-child(3) { min-width: 45px; }
+            #agent-details-section table th:nth-child(4),
+            #agent-details-section table td:nth-child(4) { min-width: 50px; }
+            #agent-details-section table th:nth-child(5),
+            #agent-details-section table td:nth-child(5) { min-width: 35px; }
+            #agent-details-section table th:nth-child(6),
+            #agent-details-section table td:nth-child(6) { min-width: 50px; }
+            #agent-details-section table th:nth-child(7),
+            #agent-details-section table td:nth-child(7) { min-width: 55px; }
+
+
+            .status-badge {
+                font-size: 0.6em;
+            }
+            .status-update-specific-note {
+                font-size: 0.55em;
+            }
+            .order-history-list .history-time {
+                font-size: 0.8em;
+            }
+            .order-history-list .history-note {
+                font-size: 0.85em;
+            }
+
+            .action-menu-toggle {
+                padding: 0.4rem; /* Increased padding slightly for touch */
+                font-size: 1.5rem;
+            }
+            .action-menu-content button, .action-menu-content .file-input-label { /* For dropdowns */
+                font-size: 0.8rem;
+                padding: 0.5rem 0.6rem;
+            }
+            .action-menu-content { /* For dropdowns */
+                min-width: 150px;
+            }
+            .agent-summary-stats p { font-size: 0.95rem; }
+            .status-counters-heading { font-size: 1rem; }
+            #agent-status-breakdown p { font-size: 0.85rem; padding: 0.4rem 0.5rem;}
+            #agent-status-breakdown p span { font-size: 0.95rem; }
+
+            #global-stats-section h3 { font-size: 1rem; }
+            .global-stats-highlight-item { font-size: 0.95rem; padding: 0.5rem 0.7rem; }
+            .global-stats-highlight-item span { font-size: 1.3em; }
+            .global-stats-grid p { font-size: 0.85rem; padding: 0.35rem 0.5rem; }
+            .global-stats-grid p span { font-size: 0.95rem; }
+             #global-search-container h3 { font-size: 1rem;}
+             #qrScannerModal .modal-content {
+                max-width: 95vw;
+             }
+        }
+
+        .hidden-for-screen {
+            display: none;
+        }
+
+        .print-meta-header, .print-financial-summary, .print-financial-summary-global {
+            display: none; /* Initially hidden, made visible by print-specific classes */
+        }
+
+        @media print {
+            body {
+                font-family: var(--font-family); /* Ensure font consistency */
+                color: #000;
+                background-color: #fff;
+            }
+            body * {
+                visibility: hidden; /* Hide everything by default */
+                background-color: transparent !important; /* Ensure backgrounds are transparent unless overridden */
+                color: #000 !important; /* Ensure text is black unless overridden */
+                box-shadow: none !important;
+                border-color: #000 !important; /* Default border color */
+            }
+
+            /* Print Meta Header for sequence and date/time */
+            .print-meta-header {
+                display: block !important;
+                visibility: visible !important;
+                text-align: right; /* "الطرف" for RTL, so right side */
+                font-size: 10pt;
+                margin-bottom: 10px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #ccc;
+            }
+            .print-meta-header p {
+                margin: 2px 0 !important;
+                font-size: 9pt !important;
+                color: #000 !important;
+                border: none !important;
+                padding: 0 !important;
+                visibility: visible !important;
+            }
+            .print-meta-header span {
+                 visibility: visible !important;
+                 color: #000 !important;
+            }
+
+
+            /* Print Financial Summary for the specific PDF content */
+            .print-financial-summary, .print-financial-summary-global {
+                display: block !important;
+                visibility: visible !important;
+                margin-top: 10px;
+                margin-bottom: 15px;
+                padding: 8px;
+                border: 1px solid #aaa !important;
+                background-color: #f5f5f5 !important;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .print-financial-summary *, .print-financial-summary-global * { /* Make all children visible */
+                 visibility: visible !important;
+                 color: #000 !important;
+            }
+            .print-financial-summary h3, .print-financial-summary-global h4 {
+                margin-top: 0 !important;
+                margin-bottom: 5px !important;
+                font-size: 11pt !important;
+                border-bottom: 1px solid #999 !important;
+                padding-bottom: 3px !important;
+            }
+            .print-financial-summary p, .print-financial-summary-global p {
+                margin: 3px 0 !important;
+                font-size: 9pt !important;
+            }
+            .print-financial-summary span, .print-financial-summary-global span {
+                font-weight: bold;
+            }
+
+
+            /* Styles for individual agent PDF */
+            .printing-agent-details #agent-details-section,
+            .printing-agent-details #agent-details-section > .print-meta-header-placeholder, /* show placeholder */
+            .printing-agent-details #agent-details-section > .print-financial-summary-placeholder, /* show placeholder */
+            .printing-agent-details #agent-details-section #agent-details-info > h2, /* Agent Name heading */
+            .printing-agent-details #agent-details-section #agent-details-info > p, /* Agent phone, area, and delivery fee per order for print */
+            .printing-agent-details #agent-details-section > h3, /* "قائمة الطلبات" heading */
+            .printing-agent-details #agent-details-section .table-responsive-wrapper,
+            .printing-agent-details #agent-details-section table,
+            .printing-agent-details #agent-details-section table * {
+                visibility: visible;
+            }
+
+            .printing-agent-details #agent-details-info, /* This ensures the container is visible for its children */
+            .printing-agent-details #agent-details-info * { /* Make all children of info initially visible for easier selection */
+                visibility: visible;
+            }
+            /* Now hide specific parts of agent-details-info that are replaced or not needed */
+            .printing-agent-details #agent-details-section .agent-summary-stats, /* Hide the on-screen summary stats, financial placeholder is used */
+            .printing-agent-details #agent-details-section #agent-status-breakdown,
+            .printing-agent-details #agent-details-section .status-counters-heading,
+             .printing-agent-details #agent-details-section .agent-details-header > *:not(#agent-details-info) { /* Hide original action menu toggle in header */
+                display: none !important;
+                visibility: hidden !important;
+            }
+
+
+            .printing-agent-details #agent-details-section {
+                position: static !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background-color: #fff !important;
+            }
+
+            .printing-agent-details header,
+            .printing-agent-details #agents-section,
+            .printing-agent-details #agent-details-section .button-group,
+            .printing-agent-details .search-input-group,
+            .printing-agent-details .action-menu-container,
+            .printing-agent-details .close-btn,
+            .printing-agent-details .modal,
+            .printing-agent-details #main-settings-menu-container,
+            .printing-agent-details #global-stats-section,
+            .printing-agent-details #global-search-container,
+            .printing-agent-details #current-agent-action-menu-container-wrapper {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            .printing-agent-details #agent-details-section table th:nth-child(9), /* Hide actions column header */
+            .printing-agent-details #agent-details-section table td:nth-child(9)  /* Hide actions column cells */ {
+                display: none !important;
+            }
+
+
+            /* Styles for global PDF report */
+            .printing-global-report #global-pdf-report-content,
+            .printing-global-report #global-pdf-report-content * {
+                visibility: visible;
+            }
+             .printing-global-report #global-pdf-report-content .print-meta-header, /* show main meta header */
+             .printing-global-report #global-pdf-report-content .print-financial-summary-global, /* show per-agent financial summaries */
+             .printing-global-report #global-pdf-report-content .global-report-agent-section table,
+             .printing-global-report #global-pdf-report-content .global-report-agent-section table * {
+                 visibility: visible !important;
+             }
+
+            .printing-global-report #global-pdf-report-content {
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background-color: #fff !important;
+            }
+             .printing-global-report header,
+             .printing-global-report main > section:not(#global-pdf-report-content),
+             .printing-global-report .modal,
+             .printing-global-report #main-settings-menu-container,
+             .printing-global-report #global-stats-section,
+             .printing-global-report #global-search-container,
+             .printing-global-report #agents-list {
+                display: none !important;
+                visibility: hidden !important;
+            }
+
+            /* Common print styles */
+            table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                font-size: 9pt !important;
+                page-break-inside: auto;
+            }
+            tr {
+                 page-break-inside: avoid;
+                 page-break-after: auto;
+            }
+            thead {
+                display: table-header-group;
+            }
+            th, td {
+                border: 1px solid #666 !important;
+                padding: 4px !important;
+                text-align: right !important;
+                vertical-align: top;
+            }
+            th {
+                background-color: #e0e0e0 !important;
+                color: #000 !important;
+                font-weight: bold;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+             h1, h2, h3, p { /* General text styling in print */
+                color: #000 !important;
+                background-color: transparent !important;
+                border: none !important;
+                padding-bottom: 0.2em;
+                 visibility: visible; /* Ensure these are visible if they are part of printable content */
+            }
+             h1 { font-size: 16pt; margin-bottom: 0.5em;}
+             h2 { font-size: 13pt; margin-top: 0.8em; margin-bottom: 0.4em;}
+             h3 { font-size: 11pt; margin-top: 0.7em; margin-bottom: 0.3em;} /* For "قائمة الطلبات" */
+             p { font-size: 9pt; }
+             /* Agent's delivery fee per order paragraph in print - used in global report */
+            .print-agent-delivery-fee-text {
+                font-size: 10pt !important;
+                font-weight: normal; /* Normal weight for better readability in lists */
+                margin-bottom: 8px !important; /* Spacing before financial summary */
+                visibility: visible !important;
+            }
+            .print-agent-delivery-fee-text strong, .print-agent-delivery-fee-text span {
+                visibility: visible !important; color: #000 !important;
+            }
+
+
+            .status-badge {
+                border: 1px solid #ccc;
+                padding: 0.2em 0.4em;
+                font-size: 0.8em;
+                color: white !important;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+                visibility: visible !important;
+            }
+            .status-مع-المندوب { background-color: var(--info-color) !important; }
+            .status-تم-التسليم { background-color: var(--success-color) !important; }
+            .status-ملغي { background-color: var(--danger-color) !important; }
+            .status-مؤجل { background-color: var(--warning-color) !important; color: var(--dark-color) !important;}
+            .status-واصل-جزئي { background-color: var(--secondary-color) !important; }
+            .status-custom { background-color: var(--secondary-color) !important; }
+
+            .status-update-specific-note {
+                color: #333 !important;
+                font-size: 0.7em !important;
+                visibility: visible !important;
+            }
+
+            a { text-decoration: none; color: #000 !important; }
+            a[href]:after { content: " (" attr(href) ")"; font-size: 0.8em; }
+            a[href^="/"]:after, a[href^="#"]:after { content: ""; }
+
+
+            @page {
+                margin: 0.7in;
+                size: A4;
+            }
+
+            body::before {
+                display: block;
+                text-align: center;
+                font-size: 16pt;
+                font-weight: bold;
+                margin-bottom: 20px;
+                content: var(--print-title, "تقرير"); /* Default title */
+                visibility: visible;
+            }
+
+            .global-report-agent-section {
+                page-break-before: always;
+                margin-top: 0.5in;
+                padding-top: 0.2in;
+                border-top: 1px solid #ccc;
+            }
+            .global-report-agent-section:first-child {
+                page-break-before: auto;
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+            }
+            #no-orders-message, #no-global-search-results-message, #no-history-message {
+                text-align: center;
+                color: #555 !important;
+                font-style: italic;
+                visibility: visible;
+            }
+        }
+
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <header>
+        <h1>prototype</h1>
+    </header>
+
+    <main>
+        <section id="agents-section" aria-labelledby="agents-heading">
+            <div class="section-header-controls">
+                <h2 id="agents-heading">قائمة المندوبين</h2>
+                <div class="action-menu-container" id="main-settings-menu-container">
+                    <button id="mainSettingsToggleBtn" class="action-menu-toggle" aria-label="إعدادات التطبيق">&#8942;</button>
+                </div>
+            </div>
+
+            <div id="global-stats-section">
+                <h3>إحصائيات عامة</h3>
+                <div class="global-stats-highlight-container">
+                    <p class="global-stats-highlight-item stat-total-orders"><strong>إجمالي الطلبات:</strong> <span id="global-stats-total-orders">0</span></p>
+                    <p class="global-stats-highlight-item stat-active-orders"><strong>الطلبات النشطة:</strong> <span id="global-stats-active-orders">0</span></p>
+                </div>
+                <div class="global-stats-grid">
+                    <p class="stat-with-agent"><strong>مع المندوب:</strong> <span id="global-stats-with-agent">0</span></p>
+                    <p class="stat-delivered"><strong>تم التسليم:</strong> <span id="global-stats-delivered">0</span></p>
+                    <p class="stat-deferred"><strong>مؤجل:</strong> <span id="global-stats-deferred">0</span></p>
+                    <p class="stat-partial"><strong>واصل جزئي:</strong> <span id="global-stats-partial">0</span></p>
+                    <p class="stat-cancelled"><strong>ملغي:</strong> <span id="global-stats-cancelled">0</span></p>
+                    <p class="stat-total-delivered-amount"><strong>إجمالي المبلغ المحصل:</strong> <span id="global-stats-total-delivered-amount">0</span></p>
+                    <p class="stat-total-delivery-fees-all"><strong>إجمالي أجور التوصيل (لكل المندوبين):</strong> <span id="global-stats-total-delivery-fees-all-agents">0</span></p>
+                    <p class="stat-total-net-after-fees-all"><strong>الصافي الإجمالي بعد الأجور والمصروفات:</strong> <span id="global-stats-total-net-after-fees-all-agents">0</span></p>
+                </div>
+            </div>
+
+            <div id="global-search-container">
+                <h3>بحث شامل في جميع الطلبات</h3>
+                <div class="search-input-group" id="global-search-input-group">
+                    <input type="text" id="globalSearchInput" placeholder="بحث برقم الوصل، هاتف الزبون، أو الشركة..." aria-label="بحث شامل في الطلبات">
+                    <button id="globalSearchQRBtn" class="qr-scan-btn" aria-label="مسح باركود أو QR Code للبحث الشامل">&#128247;</button>
+                    <button id="globalSearchBtn">بحث شامل</button>
+                </div>
+            </div>
+
+            <input type="file" id="importDataInput" accept=".json" class="hidden">
+            <div id="agents-list" class="cards-container">
+                <!-- Agent cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="agent-details-section" class="hidden" aria-live="polite" aria-labelledby="agent-details-name-heading">
+            <!-- Placeholder for print-specific header (sequence, date) -->
+            <div class="print-meta-header-placeholder"></div>
+            <div class="agent-details-header">
+                <div id="agent-details-info">
+                    <h2 id="agent-details-name-heading">تفاصيل المندوب: <span id="agent-details-name"></span></h2>
+                    <p><strong>الهاتف:</strong> <span id="agent-details-phone"></span></p>
+                    <p><strong>المنطقة:</strong> <span id="agent-details-area"></span></p>
+                    <p><strong>أجور التوصيل للطلب:</strong> <span id="agent-details-delivery-fee"></span></p>
+
+                    <!-- Placeholder for print-specific financial summary -->
+                    <div class="print-financial-summary-placeholder"></div>
+
+                    <div class="agent-summary-stats">
+                        <p><strong>الطلبات النشطة:</strong> <span id="agent-details-active-orders">0</span></p>
+                        <p><strong>إجمالي الطلبات:</strong> <span id="agent-details-total-orders">0</span></p>
+                        <p class="total-delivered-amount"><strong>إجمالي المبلغ المحصل:</strong> <span id="agent-details-total-delivered-amount">0</span></p>
+                        <p class="total-delivery-fees"><strong>إجمالي أجور التوصيل:</strong> <span id="agent-details-total-delivery-fees">0</span></p>
+                        <p class="total-expenses"><strong>إجمالي المصروفات الإضافية:</strong> <span id="agent-details-total-extra-expenses">0</span></p>
+                        <p class="net-after-fees"><strong>الصافي بعد الأجور والمصروفات:</strong> <span id="agent-details-net-after-fees">0</span></p>
+                    </div>
+
+                    <h3 class="status-counters-heading">إحصائيات حالات الطلبات:</h3>
+                    <div id="agent-status-breakdown" class="agent-status-counters">
+                        <p><strong>مع المندوب:</strong> <span id="agent-details-status-with-agent">0</span></p>
+                        <p><strong>تم التسليم:</strong> <span id="agent-details-status-delivered">0</span></p>
+                        <p><strong>مؤجل:</strong> <span id="agent-details-status-deferred">0</span></p>
+                        <p><strong>واصل جزئي:</strong> <span id="agent-details-status-partial">0</span></p>
+                        <p><strong>ملغي:</strong> <span id="agent-details-status-cancelled">0</span></p>
+                    </div>
+                </div>
+                <div class="action-menu-container" id="current-agent-action-menu-container-wrapper">
+                     <button id="currentAgentActionToggleBtn" class="action-menu-toggle" aria-label="خيارات المندوب الحالي">&#8942;</button>
+                </div>
+            </div>
+            <div class="button-group">
+                <button id="viewAgentExpensesBtn" class="secondary">عرض المصروفات</button>
+                <button id="showAddOrderModalBtn" aria-label="إضافة طلب جديد لهذا المندوب">إضافة طلب جديد</button>
+                <button id="backToAgentsListBtn" class="secondary" aria-label="العودة إلى قائمة المندوبين">العودة لقائمة المندوبين</button>
+            </div>
+
+            <h3>قائمة الطلبات</h3>
+            <div class="search-input-group">
+                <input type="text" id="searchInput" placeholder="بحث برقم الوصل أو هاتف الزبون أو الشركة..." aria-label="بحث في طلبات المندوب الحالي">
+                <button id="agentSearchQRBtn" class="qr-scan-btn" aria-label="مسح باركود أو QR Code لبحث طلبات المندوب">&#128247;</button>
+            </div>
+            <div class="table-responsive-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>الشركة</th>
+                            <th>رقم الوصل</th>
+                            <th>هاتف الزبون</th>
+                            <th>السعر</th>
+                            <th>الحالة</th>
+                            <th>الملاحظات</th>
+                            <th>تاريخ الإضافة</th>
+                            <th>إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <!-- Order rows will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="no-orders-message" class="hidden" style="text-align: center; padding: 1rem; color: var(--secondary-color);">لا توجد طلبات لعرضها.</p>
+        </section>
+
+        <!-- Hidden section for Global PDF Report content -->
+        <section id="global-pdf-report-content" class="hidden-for-screen" aria-hidden="true">
+            <!-- Content for global PDF report will be dynamically inserted here by JavaScript -->
+        </section>
+    </main>
+
+    <!-- Main Settings Modal -->
+    <div id="mainSettingsModal" class="modal" role="dialog" aria-labelledby="mainSettingsModalTitle" aria-hidden="true">
+        <div class="modal-content modal-sm">
+            <span class="close-btn" data-modal-id="mainSettingsModal" aria-label="إغلاق">&times;</span>
+            <h3 id="mainSettingsModalTitle">إعدادات التطبيق</h3>
+            <div class="modal-actions-group">
+                <button id="addAgentBtnInSettings" aria-label="إضافة مندوب جديد">إضافة مندوب جديد</button>
+                <button id="exportReportBtnInSettings" aria-label="تصدير تقرير CSV">تصدير تقرير CSV</button>
+                <button id="exportGlobalOrdersPDFBtn" class="info" aria-label="تصدير كشف PDF لجميع الطلبات">تصدير كشف PDF لجميع الطلبات</button>
+                <button id="exportGlobalOrdersNonDeliveredPDFBtn" class="info" aria-label="تصدير كشف PDF لجميع الطلبات (عدا المسلم)">تصدير كشف PDF للطلبات (عدا المسلم)</button>
+                <button id="exportDataBtnInSettings" aria-label="تصدير البيانات JSON">تصدير البيانات (JSON)</button>
+                <label for="importDataInput" id="importDataLabelInSettings" class="file-input-label" aria-label="استيراد البيانات JSON">استيراد البيانات (JSON)</label>
+                <button id="deleteAllAgentsBtnInSettings" class="danger" aria-label="حذف جميع المندوبين">حذف جميع المندوبين</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Agent Actions Modal -->
+    <div id="currentAgentActionsModal" class="modal" role="dialog" aria-labelledby="currentAgentActionsModalTitle" aria-hidden="true">
+        <div class="modal-content modal-sm">
+            <span class="close-btn" data-modal-id="currentAgentActionsModal" aria-label="إغلاق">&times;</span>
+            <h3 id="currentAgentActionsModalTitle">إجراءات المندوب</h3>
+            <div class="modal-actions-group">
+                <button id="editCurrentAgentBtnInModal" class="warning">تعديل معلومات المندوب</button>
+                <button id="addExpenseForCurrentAgentBtnInModal" class="warning">إضافة أجور إضافية/صرفيات</button>
+                <hr style="border: none; border-top: 1px solid #eee; margin: 0.5rem 0;">
+                <button id="exportAgentOrdersPDFBtnInModal" class="info">تصدير كشف PDF للطلبات</button>
+                <button id="exportAgentOrdersNonDeliveredPDFBtnInModal" class="info">تصدير كشف PDF للطلبات (عدا المسلم)</button>
+                <hr style="border: none; border-top: 1px solid #eee; margin: 0.5rem 0;">
+                <button id="deleteAllOrdersForCurrentAgentBtnInModal" class="danger">حذف جميع طلبات هذا المندوب</button>
+                <button id="deleteCurrentAgentBtnInModal" class="danger">حذف هذا المندوب</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Agent Modal -->
+    <div id="addAgentModal" class="modal" role="dialog" aria-labelledby="addAgentModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="addAgentModal" aria-label="إغلاق">&times;</span>
+            <h3 id="addAgentModalTitle">إضافة مندوب جديد</h3>
+            <form id="addAgentForm">
+                <div>
+                    <label for="agentName">الاسم الكامل:</label>
+                    <input type="text" id="agentName" required>
+                </div>
+                <div>
+                    <label for="agentPhone">رقم الهاتف:</label>
+                    <input type="tel" id="agentPhone" required pattern="[0-9]{10,15}">
+                </div>
+                <div>
+                    <label for="agentArea">المنطقة:</label>
+                    <input type="text" id="agentArea" required>
+                </div>
+                <div>
+                    <label for="agentDeliveryFee">أجور التوصيل للطلب الواحد:</label>
+                    <input type="number" id="agentDeliveryFee" required min="0" step="any" placeholder="مثال: 2000">
+                </div>
+                <button type="submit" class="success">إضافة المندوب</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Agent Modal -->
+    <div id="editAgentModal" class="modal" role="dialog" aria-labelledby="editAgentModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="editAgentModal" aria-label="إغلاق">&times;</span>
+            <h3 id="editAgentModalTitle">تعديل معلومات المندوب</h3>
+            <form id="editAgentForm">
+                <input type="hidden" id="editAgentId">
+                <div>
+                    <label for="editAgentName">الاسم الكامل:</label>
+                    <input type="text" id="editAgentName" required>
+                </div>
+                <div>
+                    <label for="editAgentPhone">رقم الهاتف:</label>
+                    <input type="tel" id="editAgentPhone" required pattern="[0-9]{10,15}">
+                </div>
+                <div>
+                    <label for="editAgentArea">المنطقة:</label>
+                    <input type="text" id="editAgentArea" required>
+                </div>
+                <div>
+                    <label for="editAgentDeliveryFee">أجور التوصيل للطلب الواحد:</label>
+                    <input type="number" id="editAgentDeliveryFee" required min="0" step="any">
+                </div>
+                <button type="submit" class="success">حفظ التعديلات</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Expense Modal -->
+    <div id="addExpenseModal" class="modal" role="dialog" aria-labelledby="addExpenseModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="addExpenseModal" aria-label="إغلاق">&times;</span>
+            <h3 id="addExpenseModalTitle">إضافة مصروفات للمندوب: <span id="addExpenseModalAgentName"></span></h3>
+            <form id="addExpenseForm">
+                <input type="hidden" id="expenseAgentId">
+                <div>
+                    <label for="expenseAmount">المبلغ:</label>
+                    <input type="number" id="expenseAmount" required min="0" step="any">
+                </div>
+                <div>
+                    <label for="expenseDescription">الوصف:</label>
+                    <input type="text" id="expenseDescription" required>
+                </div>
+                <button type="submit" class="success">إضافة المصروف</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Add Order Modal -->
+    <div id="addOrderModal" class="modal" role="dialog" aria-labelledby="addOrderModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="addOrderModal" aria-label="إغلاق">&times;</span>
+            <h3 id="addOrderModalTitle">إضافة طلب جديد لـ <span id="addOrderModalAgentName"></span></h3>
+            <form id="addOrderForm">
+                <input type="hidden" id="orderAgentId">
+                <div>
+                    <label for="orderType">الشركة:</label>
+                    <input type="text" id="orderType" required>
+                </div>
+                <div>
+                    <label for="receiptNumber">رقم الوصل:</label>
+                    <input type="text" id="receiptNumber" required>
+                </div>
+                <div>
+                    <label for="customerPhone">رقم هاتف الزبون:</label>
+                    <input type="tel" id="customerPhone" required pattern="[0-9]{10,15}">
+                </div>
+                <div>
+                    <label for="orderPrice">السعر (اختياري):</label>
+                    <input type="number" id="orderPrice" placeholder="مثال: 15000" step="any">
+                </div>
+                <div>
+                    <label for="orderNote">الملاحظات (اختياري):</label>
+                    <textarea id="orderNote" rows="3"></textarea>
+                </div>
+                <button type="submit" class="success">إضافة الطلب</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Status Modal -->
+    <div id="updateStatusModal" class="modal" role="dialog" aria-labelledby="updateStatusModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="updateStatusModal" aria-label="إغلاق">&times;</span>
+            <h3 id="updateStatusModalTitle">تحديث حالة الطلب</h3>
+            <form id="updateStatusForm">
+                <input type="hidden" id="updateStatusOrderId">
+                <input type="hidden" id="updateStatusAgentId">
+                <div>
+                    <label for="orderStatus">الحالة الجديدة:</label>
+                    <select id="orderStatus">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div id="customStatusDiv" class="hidden" style="margin-top: 0.5rem;">
+                    <label for="customOrderStatusText">الحالة المخصصة:</label>
+                    <input type="text" id="customOrderStatusText" placeholder="ادخل نص الحالة هنا">
+                     <div id="customStatusActiveDiv" style="margin-top: 0.5rem;">
+                        <input type="checkbox" id="customOrderStatusIsActive" checked>
+                        <label for="customOrderStatusIsActive">اعتبار هذا الطلب نشط</label>
+                    </div>
+                </div>
+                <div id="newPriceForStatusUpdateDiv" class="hidden" style="margin-top: 0.5rem;">
+                    <label for="newPriceForStatusUpdate">السعر الجديد (في حال تغيير السعر):</label>
+                    <input type="number" id="newPriceForStatusUpdate" placeholder="ادخل السعر الجديد" step="any">
+                </div>
+                <div>
+                    <label for="statusUpdateNote">ملاحظة تحديث الحالة (اختياري):</label>
+                    <textarea id="statusUpdateNote" rows="2"></textarea>
+                </div>
+                <button type="submit" class="success">تحديث الحالة</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order History Modal -->
+    <div id="orderHistoryModal" class="modal" role="dialog" aria-labelledby="orderHistoryModalTitle" aria-hidden="true">
+        <div class="modal-content modal-lg">
+            <span class="close-btn" data-modal-id="orderHistoryModal" aria-label="إغلاق">&times;</span>
+            <h3 id="orderHistoryModalTitle">سجل تحديثات الطلب رقم: <span id="historyOrderReceiptNumber"></span></h3>
+            <ul id="orderHistoryList" class="order-history-list">
+                <!-- History items will be populated here -->
+            </ul>
+             <p id="no-history-message" class="hidden" style="text-align: center; padding: 1rem; color: var(--secondary-color);">لا يوجد سجل تحديثات لهذا الطلب.</p>
+        </div>
+    </div>
+
+    <!-- Order Actions Modal -->
+    <div id="orderActionsModal" class="modal" role="dialog" aria-labelledby="orderActionsModalTitle" aria-hidden="true">
+        <div class="modal-content modal-sm">
+            <span class="close-btn" data-modal-id="orderActionsModal" aria-label="إغلاق">&times;</span>
+            <h3 id="orderActionsModalTitle">إجراءات الطلب <span id="orderActionsModalReceiptNumber"></span></h3>
+            <div id="orderActionsModalContent">
+                <!-- Action buttons will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Order Confirmation Modal -->
+    <div id="deleteOrderConfirmModal" class="modal" role="dialog" aria-labelledby="deleteOrderConfirmModalTitle" aria-hidden="true">
+        <div class="modal-content modal-sm">
+            <span class="close-btn" data-modal-id="deleteOrderConfirmModal" aria-label="إغلاق">&times;</span>
+            <h3 id="deleteOrderConfirmModalTitle">تأكيد الحذف</h3>
+            <p>هل أنت متأكد من أنك تريد حذف هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء.</p>
+            <div class="modal-actions-group">
+                <button id="confirmDeleteOrderBtn" class="danger">نعم، احذف الطلب</button>
+                <button id="cancelDeleteOrderBtn" class="secondary">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Search Results Modal -->
+    <div id="globalSearchResultsModal" class="modal" role="dialog" aria-labelledby="globalSearchResultsModalTitle" aria-hidden="true">
+        <div class="modal-content modal-xl">
+            <span class="close-btn" data-modal-id="globalSearchResultsModal" aria-label="إغلاق">&times;</span>
+            <h3 id="globalSearchResultsModalTitle">نتائج البحث الشامل</h3>
+            <div class="table-responsive-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>اسم المندوب</th>
+                            <th>الشركة</th>
+                            <th>رقم الوصل</th>
+                            <th>هاتف الزبون</th>
+                            <th>السعر</th>
+                            <th>الحالة</th>
+                            <th>الملاحظات</th>
+                            <th>تاريخ الإضافة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="global-search-results-table-body">
+                        <!-- Search results will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="no-global-search-results-message" class="hidden" style="text-align: center; padding: 1rem; color: var(--secondary-color);">لا توجد طلبات تطابق معايير البحث.</p>
+        </div>
+    </div>
+
+    <!-- QR Code Scanner Modal -->
+    <div id="qrScannerModal" class="modal" role="dialog" aria-labelledby="qrScannerModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close-btn" data-modal-id="qrScannerModal" aria-label="إغلاق">&times;</span>
+            <h3 id="qrScannerModalTitle">مسح باركود / QR Code</h3>
+            <video id="qrVideo" playsinline></video>
+            <canvas id="qrCanvas" class="hidden"></canvas>
+            <p id="qrScannerStatus">وجه الكاميرا نحو الرمز...</p>
+        </div>
+    </div>
+
+    <!-- Agent Expenses Modal -->
+    <div id="agentExpensesModal" class="modal" role="dialog" aria-labelledby="agentExpensesModalTitle" aria-hidden="true">
+        <div class="modal-content modal-lg">
+            <span class="close-btn" data-modal-id="agentExpensesModal" aria-label="إغلاق">&times;</span>
+            <h3 id="agentExpensesModalTitle">مصروفات المندوب: <span id="expensesModalAgentName"></span></h3>
+            <div class="expenses-controls-group">
+                <button class="secondary active" data-group="all">عرض الكل (بدون تجميع)</button>
+                <button class="secondary" data-group="month">تجميع حسب الشهر</button>
+                <button class="secondary" data-group="year">تجميع حسب السنة</button>
+            </div>
+            <div id="agentExpensesContent" class="expenses-content-area">
+                <!-- Expenses will be rendered here by JS -->
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
